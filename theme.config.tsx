@@ -6,7 +6,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/overdev-l/vcdp',
   },
-  docsRepositoryBase: 'https://github.com/overdev-l/vcdp',
+  docsRepositoryBase: 'https://github.com/overdev-l/vcdpdocs',
   footer: {
     text: '',
   },

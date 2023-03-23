@@ -1,0 +1,64 @@
+# 安装
+用你喜欢的包管理器安装`vcdp`:
+```bash
+yarn add vcdp
+# 或者使用 npm
+npm install vcdp
+# 或者使用pnpm
+pnpm add vcdp
+```
+
+创建一个`vcdp`实例，并且给这个实例一些参数
+```ts {1,7-12}
+import { Core } from 'vcdp'
+import { useRef, useState, useEffect } from 'react'
+function App () {
+const container = useRef<HTMLDivElement>(null)
+const [vcdp, setVcdp] = useState<Core>(null)
+useEffect(() => {
+  const player = new Core({
+            container: container.current as HTMLDivElement,
+            videoHeight: 1080,
+            videoWidth: 1920,
+            movieData: data,
+        })
+        setVcdp(player)
+}, [container])
+  return (
+    <>
+      <div ref={container} />
+    </>
+  )
+}
+```
+您必须要给`vcdp`一个容器，因为`vcdp`要在页面上创建一个画布来展示视频内容。您还要给定视频的宽高，`vcdp`会在容器有限的空间内容等比缩小或放大您的视频。
+除此之外您还可以设置一些`icon`来自定义暂停、加载中的表现，如果您没有给定，`vcdp`内指定了一些图标，但是可能达不到您的要求
+
+```ts {13,15,17}
+import { Core } from 'vcdp'
+import { useRef, useState, useEffect } from 'react'
+function App () {
+const container = useRef<HTMLDivElement>(null)
+const [vcdp, setVcdp] = useState<Core>(null)
+useEffect(() => {
+  const player = new Core({
+            container: container.current as HTMLDivElement,
+            videoHeight: 1080,
+            videoWidth: 1920,
+            movieData: data,
+            // 加载中icon 网络或者本地图片地址
+            loadingImage: '',
+            // 暂停icon 网络或者本地图片地址
+            pauseImage: '',
+            // 重播icon 网络或者本地图片地址
+            replayImage: ''
+        })
+        setVcdp(player)
+}, [container])
+  return (
+    <>
+      <div ref={container} />
+    </>
+  )
+}
+```
