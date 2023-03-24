@@ -1,3 +1,113 @@
-# Advanced
+## Core
+### Config
+```ts
+type Options = {
+    movieData: MovieData,
+    container: string | HTMLDivElement
+    loadingImage?: string
+    pauseImage?: string
+    replayImage?: string
+    videoWidth: number
+    videoHeight: number
+  }
+```
+#### MovieData
 
-This is the index page for the Advanced folder!
+```ts
+interface MovieData {
+    backgroundAudios: BackgroundAudio[]
+    scenes: Scene[]
+    elements: VideoElement[]
+  }
+```
+
+#### BackgroundAudio
+```ts
+  interface BackgroundAudio {
+    source: string
+    startTime: number
+    endTime: number
+    volume: number
+    mute?: boolean
+    loop?: boolean
+  }
+```
+#### Scene
+
+```ts
+  interface Scene {
+    duration: number
+    video: Video
+    subtitle?: Subtitle
+    dub?: Dub
+  }
+```
+
+##### Dub
+```ts
+type Dub = Omit<BackgroundAudio, "startTime" | "endTime" | "loop">
+```
+##### Video 
+```ts
+interface Video {
+    source: string
+    startTime: number
+    endTime: number
+    volume: number
+    mute: boolean
+  }
+```
+
+##### subtitle 
+```ts
+  interface Subtitle {
+    source: string
+    style: TextStyle
+  }
+```
+###### TextStyle
+```ts
+  type TextStyle = Konva.TextConfig & {
+    [prop: string]: string | number
+  }
+```
+
+
+#### VideoElement
+```ts
+interface VideoElement {
+    source: string
+    type: 0 | 1  // 0 文本 1 图片
+    style: Konva.TextConfig | imageConfig
+  }
+```
+#### imageConfig
+[Konva.ImageConfig](https://konvajs.org/api/Konva.Image.html)
+```ts
+type imageConfig = Omit<Konva.ImageConfig, "image">
+```
+
+## Method
+
+### play
+- play(): void
+> 播放函数，如果所有场景都已播放完毕调用此函数无效，请调用`replay()`
+
+### pause
+- pause(): void
+> 暂停函数，播放中可以调用，并展示暂停icon
+
+### videoVolume
+- videoVolume(volume?: number): volume
+- volume: 1 - 100
+> 修改/获取视频音量。 此操作只更新本次`Scene`列表，如果数据源没有改变，`replay`会再次读取`config`信息
+
+### backgroundVolume
+- backgroundVolume(volume?: number): volume ｜ undefined
+- volume: 1 - 100
+> 修改/获取背景音量，如有多个背景音乐全部同步，如需修改单个背景音乐音量请更新`config`。
+
+### update
+- update(config)
+> 更新播放器内容，如有上次相同资源不会重复请求，读取缓存
+
