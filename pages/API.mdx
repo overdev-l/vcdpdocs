@@ -47,7 +47,7 @@ interface MovieData {
 ```ts
 type Dub = Omit<BackgroundAudio, "startTime" | "endTime" | "loop">
 ```
-##### Video 
+##### Video
 ```ts
 interface Video {
     source: string
@@ -58,7 +58,7 @@ interface Video {
   }
 ```
 
-##### subtitle 
+##### subtitle
 ```ts
   interface Subtitle {
     source: string
@@ -115,3 +115,21 @@ type imageConfig = Omit<Konva.ImageConfig, "image">
 - update(config)
 > 更新播放器内容，如有上次相同资源不会重复请求，读取缓存
 
+
+## Event
+
+### play
+
+### pause
+
+### replay
+
+### timeupdate
+
+### dispose
+
+### switchScene
+
+### done
+
+### init
